@@ -3,8 +3,8 @@ class Game {
     
     private cells : NodeList;
     public  board : Array<number>;
-    private huPlayer: Human // Ik moet dit nog even veranderen object georienteerd
-    private aiPlayer : AI; // ik moet dit nog even veranderen object georienteerd
+    private huPlayer: string ///moet class Human worden
+    private aiPlayer : string // moet class AI worden
     private combos : any;
     
     constructor() {

@@ -1,6 +1,7 @@
 "use strict";
 class AI {
     constructor() {
+        this.choice = 'X';
     }
 }
 class Game {
@@ -88,6 +89,7 @@ class Game {
 window.addEventListener("load", () => new Game());
 class Human {
     constructor() {
+        this.choice = 'O';
     }
 }
 class Platform {
