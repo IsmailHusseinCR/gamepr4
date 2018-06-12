@@ -14,3 +14,9 @@ Dit is een leeg startproject voor de oefeningen in CMTTHE01-4 en PRG01-8.
 
 ## Bekijken
 Open index.html in `localhost`
+
+## Peer Review
+- Ik review de game van Hugo. [Link](https://github.com/Hugocaminada/mijnGame)
+- Hij heeft goed gebruik gemaakt van **Encapsulation** en maakt gebruik van private en public variablen/methods
+- Maakt ook goed gebruik van Composition bijvoorbeeld dit `this.game.showScreen(new Lizardlevel(this.game))` en `private game : Game` , `constructor(g:Game){..}` , `this.game = g`
+- Overerving nog todo.
