@@ -9,6 +9,7 @@ class Canvas {
         for (let i = 0; i < 10; i++) {
             this.shapes.push(new Circle(Math.random() * window.innerWidth, Math.random() * window.innerHeight, Math.random() * 8 + 1, Math.random() * 8 + 1, this.c, Math.random() * 30 + 1, 0, Math.PI * 2, false), new Rectangle(Math.random() * window.innerWidth, Math.random() * window.innerHeight, Math.random() * 8 + 1, Math.random() * 8 + 1, this.c, Math.random() * 100 + 1, Math.random() * 100 + 1));
         }
+        console.log(this.shapes);
     }
     update() {
         this.c.clearRect(0, 0, window.innerWidth, window.innerHeight);

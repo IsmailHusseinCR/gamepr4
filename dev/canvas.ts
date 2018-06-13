@@ -13,6 +13,7 @@ class Canvas {
         new Rectangle(Math.random() * window.innerWidth,Math.random() * window.innerHeight,Math.random() * 8 + 1,Math.random() * 8 + 1,this.c,Math.random() * 100 + 1,Math.random() * 100 + 1))
         
       }
+      console.log(this.shapes)
 
      /* Ik maak een parent class aan genaamd Shapes. Daar overeft class rectangle, circle enzovoorts van.
       In de game maak ik een draw of update functie functie. Die roept dan de shape rectangle draw aan. Deze zal dan een rectangle op de canvas tekenen dan. Met de gameloop laat ik ze bewegen. Met een eventlistener klik maak je de scale groter ?? Thats it ??
