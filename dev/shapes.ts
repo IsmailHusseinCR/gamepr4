@@ -1,9 +1,19 @@
 class Shapes {
+    protected c : CanvasRenderingContext2D;
     protected x : number
     protected y: number
-    constructor() {
-        this.x = 100;
-        this.y = 100;
+    protected speedX: number;
+    protected speedY: number;
+
+
+    constructor(x: number,y: number,speedX: number,speedY: number, c: CanvasRenderingContext2D) {
+        // this.x = 100;
+        // this.y = 100;
+        this.c = c;
+        this.x = x;
+        this.y = y;
+        this.speedX = speedX;
+        this.speedY = speedY;
     }
 
     /**

@@ -1,100 +1,79 @@
 "use strict";
-class AI {
+class Canvas {
     constructor() {
-        this.choice = 'X';
+        this.canvas = document.querySelector('canvas');
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        this.c = this.canvas.getContext("2d");
+        this.circle = new Circle(300, 300, 5, 5, this.c, 30, 0, Math.PI * 2, false);
+        this.x = Math.random() * window.innerWidth;
+        this.y = Math.random() * window.innerHeight;
+        this.speedX = (Math.random() - 0.5 * 8);
+        this.speedY = (Math.random() - 0.5 * 8);
+    }
+    update() {
+        this.c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        this.c.beginPath();
+        this.c.arc(this.x, this.y, 30, 0, Math.PI * 2, false);
+        this.c.strokeStyle = "blue";
+        this.c.stroke();
+        this.circle.draw();
+        if (this.x + 30 > window.innerWidth || this.x - 30 < 0) {
+            this.speedX = -this.speedX;
+        }
+        if (this.y + 30 > window.innerHeight || this.y + 30 < 0) {
+            this.speedY = -this.speedY;
+        }
+        this.x += this.speedX;
+        this.y += this.speedY;
+    }
+}
+class Shapes {
+    constructor(x, y, speedX, speedY, c) {
+        this.c = c;
+        this.x = x;
+        this.y = y;
+        this.speedX = speedX;
+        this.speedY = speedY;
+    }
+    draw() {
+    }
+}
+class Circle extends Shapes {
+    constructor(x, y, speedX, speedY, c, radius, startAngle, endAngle, counterClockWise) {
+        super(x, y, speedX, speedY, c);
+        this.c = c;
+        this.speedX = speedX;
+        this.speedY = speedY;
+        this.radius = radius;
+        this.startAngle = startAngle;
+        this.endAngle = endAngle;
+        this.counterClockwise = counterClockWise;
+    }
+    draw() {
+        this.c.beginPath();
+        this.c.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle, false);
+        this.c.strokeStyle = "blue";
+        this.c.stroke();
     }
 }
 class Game {
     constructor() {
-        this.board = new Array(9);
-        this.huPlayer = 'O';
-        this.aiPlayer = 'X';
-        this.cells = document.querySelectorAll('.cell');
-        this.combos = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [6, 4, 2]
-        ];
-        this.StartGame();
+        this.canvas = new Canvas();
+        console.log(this.canvas);
+        this.gameLoop();
     }
-    StartGame() {
-        for (let index = 0; index < this.cells.length; index++) {
-            this.board = Array.from(Array(9).keys());
-            this.cells[index].innerText = '';
-            this.cells[index].style.removeProperty('background-color');
-            this.cells[index].addEventListener('click', this.turnClick.bind(this), false);
-        }
-    }
-    turnClick(square) {
-        console.log(square.target.id);
-        this.turn(square.target.id, this.huPlayer);
-        if (!this.checkTie())
-            this.turn(this.bestSpot(), this.aiPlayer);
-    }
-    turn(squareID, player) {
-        this.board[squareID] = player;
-        document.getElementById(squareID).innerText = player;
-        let gameWon = this.checkWin(this.board, player);
-        if (gameWon)
-            this.gameOver(gameWon);
-    }
-    checkWin(board, player) {
-        let plays = board.reduce((a, e, i) => (e === player) ? a.concat(i) : a, []);
-        let gameWon = null;
-        for (let [index, win] of this.combos.entries()) {
-            if (win.every(elem => plays.indexOf(elem) > -1)) {
-                gameWon = { index: index, player: player };
-                break;
-            }
-        }
-        return gameWon;
-    }
-    gameOver(gameWon) {
-        for (let index of this.combos[gameWon.index]) {
-            document.getElementById(index).style.backgroundColor =
-                gameWon.player == this.huPlayer ? "blue" : "red";
-            this.declareWinner("Tie Game!");
-        }
-        for (var i = 0; i < this.cells.length; i++) {
-            this.cells[i].removeEventListener('click', this.turnClick.bind(this), false);
-        }
-    }
-    checkTie() {
-        if (this.emptySquares().length == 0) {
-            for (var i = 0; i < this.cells.length; i++) {
-                this.cells[i].style.backgroundColor = "green";
-                this.cells[i].removeEventListener('click', this.turnClick.bind(this), false);
-            }
-            this.declareWinner("Tie Game!");
-            return true;
-        }
-        return false;
-    }
-    declareWinner(who) {
-        document.querySelector(".endgame").style.display = "block";
-        document.querySelector(".endgame .text").innerText = who;
-    }
-    emptySquares() {
-        return this.board.filter(s => typeof s == 'number');
-    }
-    bestSpot() {
-        return this.emptySquares()[0];
+    gameLoop() {
+        this.canvas.update();
+        requestAnimationFrame(() => this.gameLoop());
     }
 }
 window.addEventListener("load", () => new Game());
-class Human {
+class Rectangle {
     constructor() {
-        this.choice = 'O';
     }
 }
-class Platform {
-}
-class Player {
+class Triangle {
     constructor() {
     }
 }

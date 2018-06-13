@@ -1,6 +1,6 @@
 class Canvas {
-    private canvas : HTMLCanvasElement = <HTMLCanvasElement> document.querySelector('canvas')
-    public c : CanvasRenderingContext2D = <CanvasRenderingContext2D> this.canvas.getContext("2d");
+    private canvas : HTMLCanvasElement = <HTMLCanvasElement> document.querySelector('canvas')!
+    private c : CanvasRenderingContext2D 
     private circle : Circle
     private x : number;
     private y : number;
@@ -10,8 +10,9 @@ class Canvas {
     constructor(){
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
+      this.c = this.canvas.getContext("2d") as CanvasRenderingContext2D
 
-      this.circle = new Circle(300,300,5,5)
+      this.circle = new Circle(300,300,5,5,this.c,30,0,Math.PI * 2, false)
 
 
        this.x = Math.random() * window.innerWidth;
@@ -63,6 +64,8 @@ class Canvas {
       /**
        * Update
        */
+
+       
 
     }
     public update() {
