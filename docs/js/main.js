@@ -2,33 +2,22 @@
 class Canvas {
     constructor() {
         this.canvas = document.querySelector('canvas');
+        this.shapes = [];
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         this.c = this.canvas.getContext("2d");
-        this.circle = new Circle(300, 300, 5, 5, this.c, 30, 0, Math.PI * 2, false);
-        this.x = Math.random() * window.innerWidth;
-        this.y = Math.random() * window.innerHeight;
-        this.speedX = (Math.random() - 0.5 * 8);
-        this.speedY = (Math.random() - 0.5 * 8);
+        for (let i = 0; i < 10; i++) {
+            this.shapes.push(new Circle(Math.random() * window.innerWidth, Math.random() * window.innerHeight, Math.random() * 8 + 1, Math.random() * 8 + 1, this.c, Math.random() * 30 + 1, 0, Math.PI * 2, false), new Rectangle(Math.random() * window.innerWidth, Math.random() * window.innerHeight, Math.random() * 8 + 1, Math.random() * 8 + 1, this.c, Math.random() * 100 + 1, Math.random() * 100 + 1));
+        }
     }
     update() {
         this.c.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        this.c.beginPath();
-        this.c.arc(this.x, this.y, 30, 0, Math.PI * 2, false);
-        this.c.strokeStyle = "blue";
-        this.c.stroke();
-        this.circle.draw();
-        if (this.x + 30 > window.innerWidth || this.x - 30 < 0) {
-            this.speedX = -this.speedX;
+        for (const shape of this.shapes) {
+            shape.draw();
         }
-        if (this.y + 30 > window.innerHeight || this.y + 30 < 0) {
-            this.speedY = -this.speedY;
-        }
-        this.x += this.speedX;
-        this.y += this.speedY;
     }
 }
-class Shapes {
+class Shape {
     constructor(x, y, speedX, speedY, c) {
         this.c = c;
         this.x = x;
@@ -39,12 +28,10 @@ class Shapes {
     draw() {
     }
 }
-class Circle extends Shapes {
+class Circle extends Shape {
     constructor(x, y, speedX, speedY, c, radius, startAngle, endAngle, counterClockWise) {
         super(x, y, speedX, speedY, c);
         this.c = c;
-        this.speedX = speedX;
-        this.speedY = speedY;
         this.radius = radius;
         this.startAngle = startAngle;
         this.endAngle = endAngle;
@@ -55,6 +42,14 @@ class Circle extends Shapes {
         this.c.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle, false);
         this.c.strokeStyle = "blue";
         this.c.stroke();
+        if (this.x + 30 > window.innerWidth || this.x - 30 < 0) {
+            this.speedX = -this.speedX;
+        }
+        if (this.y + 30 > window.innerHeight || this.y + 30 < 0) {
+            this.speedY = -this.speedY;
+        }
+        this.x += this.speedX;
+        this.y += this.speedY;
     }
 }
 class Game {
@@ -69,8 +64,24 @@ class Game {
     }
 }
 window.addEventListener("load", () => new Game());
-class Rectangle {
-    constructor() {
+class Rectangle extends Shape {
+    constructor(x, y, speedX, speedY, c, height, width) {
+        super(x, y, speedX, speedY, c);
+        this.height = height;
+        this.width = width;
+    }
+    draw() {
+        this.c.beginPath();
+        this.c.fillRect(this.x, this.y, this.width, this.height);
+        this.c.fillStyle = "red";
+        if (this.x + 30 > window.innerWidth || this.x - 30 < 0) {
+            this.speedX = -this.speedX;
+        }
+        if (this.y + 30 > window.innerHeight || this.y + 30 < 0) {
+            this.speedY = -this.speedY;
+        }
+        this.x += this.speedX;
+        this.y += this.speedY;
     }
 }
 class Triangle {

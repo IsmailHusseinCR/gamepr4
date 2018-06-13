@@ -1,4 +1,4 @@
-class Shapes {
+class Shape {
     protected c : CanvasRenderingContext2D;
     protected x : number
     protected y: number
