@@ -4,9 +4,6 @@ class Game {
     
     constructor() {
         this.canvas = new Canvas()
-
-        console.log(this.canvas)
-        
         this.gameLoop()
     }
     
