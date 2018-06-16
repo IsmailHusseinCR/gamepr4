@@ -17,10 +17,8 @@ class Canvas {
     }
   
     public update() {
-          //console.log(123) dit kan naar de Game en dan in de gameLoop
           this.c.clearRect(0,0,window.innerWidth,window.innerHeight)
           for (const shape of this.shapes) {
-            // console.log(shape)
             shape.draw()  
           }
     }
