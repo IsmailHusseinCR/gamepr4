@@ -1,6 +1,7 @@
 class Game {
     
      private canvas : Canvas
+    // private scherm: StartScherm
     
     constructor() {
         this.canvas = new Canvas()
@@ -14,4 +15,5 @@ class Game {
     }
 } 
 
+window.addEventListener("click", () => new StartScherm())
 window.addEventListener("load", () => new Game())

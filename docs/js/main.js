@@ -91,6 +91,7 @@ class Game {
         requestAnimationFrame(() => this.gameLoop());
     }
 }
+window.addEventListener("click", () => new StartScherm());
 window.addEventListener("load", () => new Game());
 class Rectangle extends Shape {
     constructor(x, y, speedX, speedY, c, height, width) {
@@ -110,6 +111,14 @@ class Rectangle extends Shape {
         }
         this.x += this.speedX;
         this.y += this.speedY;
+    }
+}
+class StartScherm {
+    constructor() {
+        window.addEventListener("click", (e) => {
+            this.div = document.getElementById("startscherm");
+            document.body.removeChild(this.div);
+        });
     }
 }
 class Triangle {
