@@ -1,19 +1,40 @@
 class Game {
     
-     private canvas : Canvas
-    // private scherm: StartScherm
+     public canvas : Canvas
+    private scherm: StartScherm
+    // private endscherm : Endscherm
     
     constructor() {
-        this.canvas = new Canvas()
+        this.scherm = new StartScherm(this, "Start Game")
+
+        //this.canvas = new Canvas(this)
         this.gameLoop()
+       console.log(this.canvas)
     }
+
+    
     
     private gameLoop(){
 
-        this.canvas.update();
+        if(this.canvas !== undefined){
+        this.canvas.update()
+        }
         requestAnimationFrame(()=>this.gameLoop())
+        
+    }
+    
+    public GameOver(){
+        // new StartScherm()
+        document.body.innerHTML = ""
+        // new Endscherm(this)
+        new StartScherm(this,"End Game, try again");
+    }
+
+    public setNewCanvas(canvas: Canvas){
+        this.canvas = canvas
     }
 } 
 
-window.addEventListener("click", () => new StartScherm())
+// window.addEventListener("load", () => new StartScherm(this))
 window.addEventListener("load", () => new Game())
+//window.addEventListener("load", () => new Endscherm())

@@ -1,19 +1,37 @@
 "use strict";
 class Canvas {
-    constructor() {
-        this.canvas = document.querySelector('canvas');
+    constructor(g) {
         this.shapes = [];
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        this.c = this.canvas.getContext("2d");
+        this.game = g;
+        this.addCanvas = document.createElement('canvas');
+        this.addCanvas.id = "canvas";
+        document.body.appendChild(this.addCanvas);
+        this.addCanvas.width = window.innerWidth;
+        this.addCanvas.height = window.innerHeight;
+        this.c = this.addCanvas.getContext("2d");
         for (let i = 0; i < 500; i++) {
             this.shapes.push(new Circle(Math.random() * window.innerWidth, Math.random() * window.innerHeight, Math.random() * 2 + 1, Math.random() * 2 + 1, this.c, Math.random() * 3 + 1, 0, Math.PI * 2, false));
+        }
+        if (this.shapes[0] instanceof Circle) {
         }
     }
     update() {
         this.c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        let check = true;
         for (const shape of this.shapes) {
             shape.draw();
+            if (check) {
+                if (shape instanceof Circle) {
+                    if (shape.wonGame) {
+                        this.game.GameOver();
+                        shape.resetGame();
+                        check = false;
+                    }
+                }
+            }
+            else {
+                break;
+            }
         }
     }
 }
@@ -31,6 +49,7 @@ class Shape {
 class Circle extends Shape {
     constructor(x, y, speedX, speedY, c, radius, startAngle, endAngle, counterClockWise) {
         super(x, y, speedX, speedY, c);
+        this._wonGame = false;
         this.c = c;
         this.radius = radius;
         this.minRadius = radius;
@@ -40,7 +59,7 @@ class Circle extends Shape {
         this.mouse = {
             x: undefined,
             y: undefined,
-            maxRadius: 500
+            maxRadius: 200
         };
         this.colorArray = [
             "#B26430",
@@ -72,26 +91,56 @@ class Circle extends Shape {
         this.y += this.speedY;
         if (this.mouse.x - this.x < 50 && this.mouse.x - this.x > -50
             && this.mouse.y - this.y < 50 && this.mouse.y - this.y > -50) {
-            if (this.radius < this.mouse.maxRadius) {
-                this.radius += 1;
+            this.radius += 1;
+            if (this.radius > this.mouse.maxRadius) {
+                this.won();
             }
         }
         else if (this.radius > this.minRadius) {
             this.radius -= 1;
         }
     }
+    won() {
+        this._wonGame = true;
+    }
+    resetGame() {
+        this._wonGame = false;
+    }
+    get wonGame() {
+        return this._wonGame;
+    }
+}
+class Endscherm {
+    constructor(g) {
+        this.game = g;
+        this.endscherm = document.createElement('div');
+        document.body.appendChild(this.endscherm);
+        window.addEventListener("click", (e) => {
+            this.endscherm.id = "startscherm";
+            this.endscherm.innerHTML = "Game ended";
+        });
+    }
 }
 class Game {
     constructor() {
-        this.canvas = new Canvas();
+        this.scherm = new StartScherm(this, "Start Game");
         this.gameLoop();
+        console.log(this.canvas);
     }
     gameLoop() {
-        this.canvas.update();
+        if (this.canvas !== undefined) {
+            this.canvas.update();
+        }
         requestAnimationFrame(() => this.gameLoop());
     }
+    GameOver() {
+        document.body.innerHTML = "";
+        new StartScherm(this, "End Game, try again");
+    }
+    setNewCanvas(canvas) {
+        this.canvas = canvas;
+    }
 }
-window.addEventListener("click", () => new StartScherm());
 window.addEventListener("load", () => new Game());
 class Rectangle extends Shape {
     constructor(x, y, speedX, speedY, c, height, width) {
@@ -114,10 +163,17 @@ class Rectangle extends Shape {
     }
 }
 class StartScherm {
-    constructor() {
-        window.addEventListener("click", (e) => {
-            this.div = document.getElementById("startscherm");
+    constructor(g, text) {
+        this.game = g;
+        this.text = text;
+        this.div = document.createElement('div');
+        this.div.id = "startscherm";
+        this.div.innerHTML = this.text;
+        document.body.appendChild(this.div);
+        this.div.addEventListener("click", (e) => {
             document.body.removeChild(this.div);
+            console.log(this.game);
+            this.game.setNewCanvas(new Canvas(this.game));
         });
     }
 }

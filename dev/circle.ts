@@ -9,6 +9,7 @@ class Circle extends Shape {
    private colorArray: any
    private colors: any
    private minRadius: number
+   private _wonGame: boolean = false
 
 
 
@@ -24,7 +25,7 @@ class Circle extends Shape {
         this.mouse = {
             x: undefined,
             y: undefined,
-            maxRadius: 500
+            maxRadius: 200
         }
 
         this.colorArray = [
@@ -51,9 +52,6 @@ class Circle extends Shape {
      * draw
      */
     public draw() {
-
-
-
         this.c.beginPath()
           this.c.arc(this.x,this.y,this.radius,this.startAngle,this.endAngle, this.counterClockwise = false)
           this.c.strokeStyle = "blue"
@@ -76,13 +74,36 @@ class Circle extends Shape {
      if(this.mouse.x - this.x < 50 && this.mouse.x - this.x > -50
         && this.mouse.y - this.y < 50 && this.mouse.y - this.y > -50)
         {
-            if(this.radius < this.mouse.maxRadius){
-                this.radius += 1
+            this.radius += 1 
+            if(this.radius > this.mouse.maxRadius){
+                     
+            
+               // console.log(123)
+                this.won()
+        
+                // hier moet endscherm komen als radius gelijk staat aan max radius. Maar word elke keer overschreven. 
+                // Maak alvast een endscherm aan waar je de innerHTML veranderd. Score hoeft niet. 
             }
         }
+        
      else if (this.radius > this.minRadius){
         this.radius -= 1
+
      }
+
+    }
+
+    private won(){
+        this._wonGame = true
+    }
+
+   public resetGame(){
+       this._wonGame = false;
+   }
+
+    public get wonGame(){
+        return this._wonGame
     }
 
 }
+
