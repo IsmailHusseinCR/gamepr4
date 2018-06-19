@@ -39,6 +39,8 @@ class Shape {
         this.speedX = speedX;
         this.speedY = speedY;
     }
+
+
 ```
 Ik geef de canvas context mee vanuit de canvas en die stop ik in een constructor zodat ik in mijn canvas class een shape kan tekenen.
 
@@ -97,6 +99,62 @@ class Canvas {
 In de class *Game* geef ik een canvas mee zodat ik mijn update functie van mijn canvas *class*  kan gebruiken.
 
 
+- Voorbeeld 3
+
+```
+class StartScherm {
+    
+    private div : HTMLElement
+    private game: Game
+    private text: string
+    constructor(g: Game, text: string) {
+
+
+this.game.setNewCanvas(new Canvas(this.game))
+
+
+class Game {
+    
+     public canvas : Canvas
+    private scherm: StartScherm
+    // private endscherm : Endscherm
+    
+    constructor() {
+        this.scherm = new StartScherm(this, "Start Game")
+
+        //this.canvas = new Canvas(this)
+        this.gameLoop()
+       console.log(this.canvas)
+    }
+
+    
+    
+    private gameLoop(){
+
+        if(this.canvas !== undefined){
+        this.canvas.update()
+        }
+        requestAnimationFrame(()=>this.gameLoop())
+        
+    }
+    
+    public GameOver(){
+        // new StartScherm()
+        document.body.innerHTML = ""
+        // new Endscherm(this)
+        new StartScherm(this,"End Game, try again");
+    }
+
+    public setNewCanvas(canvas: Canvas){
+        this.canvas = canvas
+    }
+} 
+
+```
+
+Het scherm moet praten tegen de game om de game te resetten. Daarom staat deze composition hier.
+
+
 - Encapsulation
 
 Ik heb gebruik gemaakt van private en public methods. 
@@ -126,6 +184,21 @@ Ook maak ik gebruik van private en protected variablen
     protected speedY: number;
 ```
 
+Hugo's feedback opgepakt en gebruik gemaakt van een get en set (bij de set een eigen method gebruikt :( )
+
+```
+private _wonGame: boolean = false
+
+    public get wonGame(){
+        return this._wonGame
+    }
+
+        public setNewCanvas(canvas: Canvas){
+        this.canvas = canvas
+    }
+
+
+```
 - Inheritance
 
 Ik heb gebruik gemaakt van shapes. Dit is dan de parent class. Er kunnen meerdere shape classes kunnen worden gemaakt die overerven van shape
@@ -174,6 +247,10 @@ En dan kan ik in mijn canvas class cirkels of meerdere shapes tekenen
 
 Ik heb het hier toegepast omdat ik dan 500 cirkels kan tekenen in de canvas. Ik push ze ook in shapes array. 
 
+
+## Klassendiagram
+
+![alt text](https://raw.githubusercontent.com/IsmailHusseinCR/gamepr4/master/diagram.jpg)
 
 ## Peer Review
 - Ik review de game van Hugo. [Link](https://github.com/Hugocaminada/mijnGame)

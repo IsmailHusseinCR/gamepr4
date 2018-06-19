@@ -1,6 +1,6 @@
 class Game {
     
-     public canvas : Canvas
+    public canvas : Canvas
     private scherm: StartScherm
     // private endscherm : Endscherm
     
