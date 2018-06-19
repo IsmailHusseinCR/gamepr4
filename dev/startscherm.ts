@@ -8,7 +8,6 @@ class StartScherm {
         this.game = g;
         this.text = text
         this.div = document.createElement('div');
-        
         this.div.id = "startscherm";
         this.div.innerHTML = this.text
 
