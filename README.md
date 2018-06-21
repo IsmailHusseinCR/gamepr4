@@ -249,7 +249,8 @@ Ik heb het hier toegepast omdat ik dan 500 cirkels kan tekenen in de canvas. Ik 
 
 ## Speel de game 
 
-![Link githubpages](https://ismailhusseincr.github.io/gamepr4/)
+[Link githubpages](https://ismailhusseincr.github.io/gamepr4/)
+
 ## Klassendiagram
 
 ![alt text](https://raw.githubusercontent.com/IsmailHusseinCR/gamepr4/master/diagram.jpg)
