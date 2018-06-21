@@ -1,4 +1,4 @@
-class StartScherm {
+class Scherm {
     
     private div : HTMLElement
     private game: Game

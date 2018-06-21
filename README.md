@@ -247,7 +247,9 @@ En dan kan ik in mijn canvas class cirkels of meerdere shapes tekenen
 
 Ik heb het hier toegepast omdat ik dan 500 cirkels kan tekenen in de canvas. Ik push ze ook in shapes array. 
 
+## Speel de game 
 
+![Link githubpages](https://ismailhusseincr.github.io/gamepr4/)
 ## Klassendiagram
 
 ![alt text](https://raw.githubusercontent.com/IsmailHusseinCR/gamepr4/master/diagram.jpg)

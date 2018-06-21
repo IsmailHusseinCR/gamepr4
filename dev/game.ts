@@ -1,15 +1,15 @@
 class Game {
     
     public canvas : Canvas
-    private scherm: StartScherm
-    // private endscherm : Endscherm
+    private scherm: Scherm
+   
     
     constructor() {
-        this.scherm = new StartScherm(this, "Start Game")
+        this.scherm = new Scherm(this, "Start Game")
 
         //this.canvas = new Canvas(this)
         this.gameLoop()
-       console.log(this.canvas)
+       //console.log(this.canvas)
     }
 
     
@@ -27,7 +27,7 @@ class Game {
         // new StartScherm()
         document.body.innerHTML = ""
         // new Endscherm(this)
-        new StartScherm(this,"End Game, try again");
+        new Scherm(this,"End Game, try again");
     }
 
     public setNewCanvas(canvas: Canvas){

@@ -110,22 +110,10 @@ class Circle extends Shape {
         return this._wonGame;
     }
 }
-class Endscherm {
-    constructor(g) {
-        this.game = g;
-        this.endscherm = document.createElement('div');
-        document.body.appendChild(this.endscherm);
-        window.addEventListener("click", (e) => {
-            this.endscherm.id = "startscherm";
-            this.endscherm.innerHTML = "Game ended";
-        });
-    }
-}
 class Game {
     constructor() {
-        this.scherm = new StartScherm(this, "Start Game");
+        this.scherm = new Scherm(this, "Start Game");
         this.gameLoop();
-        console.log(this.canvas);
     }
     gameLoop() {
         if (this.canvas !== undefined) {
@@ -135,7 +123,7 @@ class Game {
     }
     GameOver() {
         document.body.innerHTML = "";
-        new StartScherm(this, "End Game, try again");
+        new Scherm(this, "End Game, try again");
     }
     setNewCanvas(canvas) {
         this.canvas = canvas;
@@ -162,7 +150,7 @@ class Rectangle extends Shape {
         this.y += this.speedY;
     }
 }
-class StartScherm {
+class Scherm {
     constructor(g, text) {
         this.game = g;
         this.text = text;
