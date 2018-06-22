@@ -248,6 +248,16 @@ En dan kan ik in mijn canvas class cirkels of meerdere shapes tekenen
 Ik heb het hier toegepast omdat ik dan 500 cirkels kan tekenen in de canvas. Ik push ze ook in shapes array. 
 
 ## Speel de game 
+- Gameplay
+
+Doel van het spel is om een zo'n groot mogelijk cirkel te krijgen.
+Door op een cirkel te hoveren wordt de cirkel groter en is de kans om te winnen groter.
+Om de spel te starten moet je op start game klikken en bij end game nogmaals. Zo kun je eindeloos doorspelen.
+
+- Uitdaging
+De extra uitdaging uit de uitdagingen lijst heb ik voor deze uitdaging gekozen.
+- • De game werkt met Canvas in plaats van DOM elementen
+I.p.v. DOM div cirkels teken ik cirkels op de canvas. Dat is ook lastiger om een event listener er aan te zetten.
 
 [Link githubpages](https://ismailhusseincr.github.io/gamepr4/)
 

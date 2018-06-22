@@ -112,7 +112,7 @@ class Circle extends Shape {
 }
 class Game {
     constructor() {
-        this.scherm = new Scherm(this, "Start Game");
+        this.screen = new PlayScreen(this, "Start Game");
         this.gameLoop();
     }
     gameLoop() {
@@ -123,13 +123,28 @@ class Game {
     }
     GameOver() {
         document.body.innerHTML = "";
-        new Scherm(this, "End Game, try again");
+        new PlayScreen(this, "End Game, try again");
     }
     setNewCanvas(canvas) {
         this.canvas = canvas;
     }
 }
 window.addEventListener("load", () => new Game());
+class PlayScreen {
+    constructor(g, text) {
+        this.game = g;
+        this.text = text;
+        this.div = document.createElement('div');
+        this.div.id = "startscherm";
+        this.div.innerHTML = this.text;
+        document.body.appendChild(this.div);
+        this.div.addEventListener("click", (e) => {
+            document.body.removeChild(this.div);
+            console.log(this.game);
+            this.game.setNewCanvas(new Canvas(this.game));
+        });
+    }
+}
 class Rectangle extends Shape {
     constructor(x, y, speedX, speedY, c, height, width) {
         super(x, y, speedX, speedY, c);
@@ -148,21 +163,6 @@ class Rectangle extends Shape {
         }
         this.x += this.speedX;
         this.y += this.speedY;
-    }
-}
-class Scherm {
-    constructor(g, text) {
-        this.game = g;
-        this.text = text;
-        this.div = document.createElement('div');
-        this.div.id = "startscherm";
-        this.div.innerHTML = this.text;
-        document.body.appendChild(this.div);
-        this.div.addEventListener("click", (e) => {
-            document.body.removeChild(this.div);
-            console.log(this.game);
-            this.game.setNewCanvas(new Canvas(this.game));
-        });
     }
 }
 class Triangle {
