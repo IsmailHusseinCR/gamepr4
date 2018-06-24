@@ -257,7 +257,9 @@ Om de spel te starten moet je op start game klikken en bij end game nogmaals. Zo
 - Uitdaging
 De extra uitdaging uit de uitdagingen lijst heb ik voor deze uitdaging gekozen.
 - • De game werkt met Canvas in plaats van DOM elementen
-I.p.v. DOM div cirkels teken ik cirkels op de canvas. Dat is ook lastiger om een event listener er aan te zetten.
+
+
+- I.p.v. DOM div cirkels teken ik cirkels op de canvas. Dat is ook lastiger om een event listener er aan te zetten.
 
 [Link githubpages](https://ismailhusseincr.github.io/gamepr4/)
 
